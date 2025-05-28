@@ -1,0 +1,43 @@
+{% set name = "django-smart-selects" %}
+{% set version = "1.7.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/django_smart_selects-{{ version }}.tar.gz
+  sha256: c8116718ecf2d0d0fd4cd1e52c26d2dcc586e25319aa65af7af2d51a1012df3a
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.8
+    - setuptools-scm
+    - pip
+  run:
+    - python >=3.8
+    - django >=3.2
+
+test:
+  imports:
+    - smart_selects
+    - test_app
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/jazzband/django-smart-selects
+  summary: Django application to handle chained model fields.
+  license: BSD-3-Clause
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - gb119
